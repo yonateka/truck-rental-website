@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@tailwind utilities;
+
+.home-section {
+  @apply text-center p-10;
+}
+
+.home-title {
+  @apply text-4xl font-bold mb-4 text-blue-700;
+}
+
+.home-text {
+  @apply text-lg text-gray-600 mb-6;
+}
+
+.home-button-wrapper {
+  @apply text-center;
+}
+
+.home-button {
+  @apply px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700;
+}

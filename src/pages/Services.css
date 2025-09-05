@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@tailwind utilities;
+
+.services-section {
+    @apply p-10;
+}
+
+.services-title {
+    @apply text-3xl font-bold mb-6;
+}
+
+.services-list {
+    @apply space-y-4 text-lg text-gray-700;
+}
+
+.services-item {
+    @apply list-none;
+}

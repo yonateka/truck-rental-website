@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@tailwind utilities;
+@tailwind utilities;
+
+.news-section {
+    @apply p-10;
+}
+
+.news-title {
+    @apply text-3xl font-bold mb-6;
+}
+
+.news-article {
+    @apply mb-4;
+}
+
+.news-article-title {
+    @apply font-bold;
+}
+
+.news-article-text {
+    @apply text-gray-700;
+}

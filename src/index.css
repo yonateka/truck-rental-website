@@ -1,0 +1,40 @@
+@import "tailwindcss";
+@tailwind utilities;
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Optional: smoother font rendering */
+body {
+    @apply bg-gray-50 text-gray-800 font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Default link styles */
+a {
+    @apply no-underline text-blue-600;
+}
+
+a:hover {
+    @apply text-blue-700;
+}
+
+/* Default images */
+img {
+    @apply max-w-full h-auto block;
+}
+
+/* Default list style */
+ul, ol {
+    @apply list-none;
+}
+
+/* Default buttons */
+button {
+    @apply cursor-pointer;
+}

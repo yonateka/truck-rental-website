@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.main {
+  @apply flex-grow pt-16;
+}

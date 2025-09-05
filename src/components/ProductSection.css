@@ -1,0 +1,176 @@
+.product-section {
+  padding: 4rem 2rem;
+  background: #fff;
+}
+
+.product-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: left;
+  margin-bottom: 2rem;
+  color: #222;
+  text-align: center;
+}
+
+/* ---- Carousel ---- */
+.carousel {
+  position: relative;
+}
+
+.slider-window {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  background: #fff;
+}
+
+.slider-track {
+  display: flex;
+  width: 100%;
+  transition: transform 0.6s ease-in-out;
+}
+
+.slider-track.no-transition {
+  transition: none;
+}
+
+/* Each slide takes full width of the window */
+.slide {
+  min-width: 100%;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr; /* image | info */
+  gap: 2rem;
+  align-items: center;
+  padding: 2rem;
+}
+
+@media (max-width: 900px) {
+  .slide {
+    grid-template-columns: 1fr;
+  }
+}
+
+.product-image {
+  position: relative;
+}
+
+.product-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.badge {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  background: #e30000;
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 4px;
+}
+
+/* right panel */
+.product-info {
+  background: #f7f7f8;
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+.product-info h3 {
+  font-size: 1.6rem;
+  margin-bottom: 0.4rem;
+  color: #121212;
+}
+
+.subtitle {
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  color: #555;
+}
+
+.specs {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.specs li {
+  font-size: 0.98rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-red {
+  background: #e30000;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.btn-red:hover {
+  background: #b00000;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #e30000;
+  border: 2px solid #e30000;
+  padding: 8px 18px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-outline:hover {
+  background: #e30000;
+  color: #fff;
+}
+
+/* arrows */
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  font-size: 28px;
+  line-height: 44px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.nav:hover {
+  background: #f1f1f1;
+}
+
+.nav-left {
+  left: 12px;
+}
+.nav-right {
+  right: 12px;
+}
+
+/* accessibility helper */
+.sr-only {
+  position: absolute;
+  left: -9999px;
+}
