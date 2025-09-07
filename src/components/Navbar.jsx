@@ -30,8 +30,8 @@ function Navbar() {
           <div className="dropdown">
             <span className="navbar-link">Services</span>
             <div className="dropdown-menu">
-              <Link to="/services/logistics">Logistics</Link>
-              <Link to="/services/support">Customer Support</Link>
+              <Link to="/Logistics">Logistics</Link>
+              <Link to="/CustomerSupport">Customer Support</Link>
             </div>
           </div>
 
@@ -39,9 +39,9 @@ function Navbar() {
           <div className="dropdown">
             <span className="navbar-link">Products</span>
             <div className="dropdown-menu">
-              <Link to="/products/light">Light Trucks</Link>
-              <Link to="/products/heavy">Heavy Trucks</Link>
-              <Link to="/products/accessories">Accessories</Link>
+              <Link to="/medium-trucks">Light Trucks</Link>
+              <Link to="/large-trucks">Heavy Trucks</Link>
+              <Link to="/accessories">Accessories</Link>
             </div>
           </div>
         </nav>
@@ -55,12 +55,10 @@ function Navbar() {
         <div className="dropdown">
           <span className="navbar-link">About Us</span>
           <div className="dropdown-menu">
-            <a href="#stats">About Us</a>
-            <Link to="/about/company">Company</Link>
-            <Link to="/about/team">Team</Link>
-            <Link to="/about/careers">Careers</Link>
-            <a href="#contact">Contact Us</a>
-            <a href="#Testionials">Testemonial</a>
+            <Link to="/AboutUs">About Us</Link>
+
+            <Link to="/contact">Contact Us</Link>
+            <Link to="/Testemonials">Testemonial</Link>
           </div>
         </div>
 
@@ -92,13 +90,13 @@ function Navbar() {
           <p onClick={() => toggleDropdown("services")}>Services</p>
           {openDropdown === "services" && (
             <div>
-              <Link to="/services/rental" onClick={() => setMenuOpen(false)}>
+              <Link to="/TruckRental" onClick={() => setMenuOpen(false)}>
                 Truck Rental
               </Link>
-              <Link to="/services/logistics" onClick={() => setMenuOpen(false)}>
+              <Link to="/Logistics" onClick={() => setMenuOpen(false)}>
                 Logistics
               </Link>
-              <Link to="/services/support" onClick={() => setMenuOpen(false)}>
+              <Link to="/CustomerSupport" onClick={() => setMenuOpen(false)}>
                 Customer Support
               </Link>
             </div>
@@ -109,16 +107,13 @@ function Navbar() {
           <p onClick={() => toggleDropdown("products")}>Products</p>
           {openDropdown === "products" && (
             <div>
-              <Link to="/products/light" onClick={() => setMenuOpen(false)}>
+              <Link to="/medium-trucks" onClick={() => setMenuOpen(false)}>
                 Light Trucks
               </Link>
-              <Link to="/products/heavy" onClick={() => setMenuOpen(false)}>
+              <Link to="/large-trucks" onClick={() => setMenuOpen(false)}>
                 Heavy Trucks
               </Link>
-              <Link
-                to="/products/accessories"
-                onClick={() => setMenuOpen(false)}
-              >
+              <Link to="/accessories" onClick={() => setMenuOpen(false)}>
                 Accessories
               </Link>
             </div>
@@ -129,14 +124,14 @@ function Navbar() {
           <p onClick={() => toggleDropdown("about")}>About Us</p>
           {openDropdown === "about" && (
             <div>
-              <Link to="/about/company" onClick={() => setMenuOpen(false)}>
+              <Link to="/AboutUs" onClick={() => setMenuOpen(false)}>
                 Company
               </Link>
-              <Link to="/about/team" onClick={() => setMenuOpen(false)}>
-                Team
+              <Link to="/contact" onClick={() => setMenuOpen(false)}>
+                Contact Us
               </Link>
-              <Link to="/about/careers" onClick={() => setMenuOpen(false)}>
-                Careers
+              <Link to="/Testemonials" onClick={() => setMenuOpen(false)}>
+                Testemonial
               </Link>
             </div>
           )}

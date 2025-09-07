@@ -8,13 +8,14 @@ export default function Footer() {
         {/* Column 1 */}
         <div className="footer-column">
           <h4 className="footer-heading">Company</h4>
-          <a href="#stats" className="footer-link">
+
+          <Link to="/AboutUs" className="footer-link">
             About Us
-          </a>
+          </Link>
           <Link to="/news" className="footer-link">
             News
           </Link>
-          <Link to="/case" className="footer-link">
+          <Link to="/Case" className="footer-link">
             Case Studies
           </Link>
         </div>
@@ -22,13 +23,13 @@ export default function Footer() {
         {/* Column 2 */}
         <div className="footer-column">
           <h4 className="footer-heading">Services</h4>
-          <Link to="/services" className="footer-link">
+          <Link to="/TruckRental" className="footer-link">
             Truck Rental
           </Link>
-          <Link to="/services" className="footer-link">
+          <Link to="/Logistics" className="footer-link">
             Logistics
           </Link>
-          <Link to="/services" className="footer-link">
+          <Link to="/FleetManagement" className="footer-link">
             Fleet Management
           </Link>
         </div>
@@ -37,13 +38,13 @@ export default function Footer() {
         <div className="footer-column">
           <h4 className="footer-heading">Products</h4>
 
-          <Link to="/products" className="footer-link">
-            Small Trucks
+          <Link to="/accessories" className="footer-link">
+            Accessories
           </Link>
-          <Link to="/products" className="footer-link">
+          <Link to="/medium-trucks" className="footer-link">
             Medium Trucks
           </Link>
-          <a href="#product" className="footer-link">
+          <a href="/large-trucks" className="footer-link">
             Heavy Trucks
           </a>
         </div>
@@ -52,14 +53,14 @@ export default function Footer() {
         <div className="footer-column">
           <h4 className="footer-heading">Support</h4>
 
-          <a className="footer-link" href="#contact">
+          <a className="footer-link" href="/Contact">
             Contact Us
           </a>
 
-          <Link to="/faq" className="footer-link">
+          <Link to="/Faq" className="footer-link">
             FAQ
           </Link>
-          <Link to="/help" className="footer-link">
+          <Link to="/Help" className="footer-link">
             Help Center
           </Link>
         </div>

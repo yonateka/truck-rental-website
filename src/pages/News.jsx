@@ -94,7 +94,7 @@ export default function News() {
               href={article.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-orange-600 font-black !px-12 !py-2 !mb-10 rounded "
+              className="bg-orange-600 !text-white font-semibold !px-12 !py-2 !mb-10 rounded "
             >
               Read more
             </a>
