@@ -1,11 +1,11 @@
 // src/components/Catalog.jsx
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Catalog({ title, items }) {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("all");
 
-  // Filter logic
   const filteredItems = items.filter((item) => {
     const matchesQuery = item.name.toLowerCase().includes(query.toLowerCase());
     const matchesFilter = filter === "all" || item.category === filter;
@@ -15,7 +15,7 @@ export default function Catalog({ title, items }) {
   return (
     <section className="bg-white">
       {/* Header */}
-      <div className="bg-white-600 text-white text-center !py-12 !px-6">
+      <div className="bg-gray-100 text-center !py-12 !px-6">
         <h1 className="text-4xl font-extrabold text-gray-700">{title}</h1>
         <p className="!mt-2 text-gray-900">
           Browse, search and filter {title.toLowerCase()}.
@@ -23,37 +23,32 @@ export default function Catalog({ title, items }) {
       </div>
 
       {/* Search + Filters */}
-      <div className="max-w-6xl !mx-auto !py-6 !px-4 flex flex-col md:flex-row !gap-4 items-center justify-between">
+      <div className="max-w-6xl !mx-auto !py-6 !px-4 flex flex-col md:flex-row gap-4 items-center justify-between">
         <input
           type="text"
           placeholder="Search..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full md:!w-1/2 border border-gray-300 rounded !px-4 !py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+          className="w-full md:w-1/2 border border-gray-300 rounded !px-4 !py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
         />
 
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="w-full md:!w-48 border border-gray-300 rounded !px-4 !py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+          className="w-full md:w-48 border border-gray-300 rounded !px-4 !py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
         >
           <option value="all">All Categories</option>
-          <option value="Isuzu">Isuzu</option>
           <option value="Volvo">Volvo</option>
-          <option value="LT">LT</option>
-          <option value="DAF">DAF</option>
-          <option value="MAN">MAN TGX</option>
-          <option value="Mercedes">Mercedes</option>
+          <option value="Scania">Scania</option>
+          <option value="Mack Anthem">Mack Anthem</option>
           <option value="Cascadia">Cascadia</option>
           <option value="Kenworth">Kenworth</option>
-          <option value="Mack Anthem">Mack Anthem</option>
-          <option value="Scania">Scania</option>
           <option value="Peterbilt">Peterbilt</option>
         </select>
       </div>
 
       {/* Grid */}
-      <div className="max-w-6xl !mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-8 !px-4 !pb-12">
+      <div className="!max-w-6xl !mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-8 !px-4 !pb-12">
         {filteredItems.map((item) => (
           <div
             key={item.id}
@@ -62,7 +57,7 @@ export default function Catalog({ title, items }) {
             <img
               src={item.image}
               alt={item.name}
-              className="!h-48 !w-full object-cover rounded-t-lg"
+              className="!h-48 w-full object-cover rounded-t-lg"
             />
             <div className="!p-4">
               <h3 className="text-lg font-semibold text-gray-800">
@@ -74,9 +69,12 @@ export default function Catalog({ title, items }) {
                   <li key={i}>• {f}</li>
                 ))}
               </ul>
-              <button className="!mt-4 bg-orange-500 !text-white !px-4 !py-2 rounded hover:bg-orange-600 transition">
+              <Link
+                to={`/product/${item.id}`}
+                className="!mt-4 inline-block bg-orange-500 !text-white !px-4 !py-2 rounded hover:bg-orange-600 transition"
+              >
                 View Details
-              </button>
+              </Link>
             </div>
           </div>
         ))}

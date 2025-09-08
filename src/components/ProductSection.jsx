@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ProductSection.css";
 import { assets } from "../assets/assets";
+import { useNavigate } from "react-router-dom";
 
 const ProductSection = () => {
   const slides = [
@@ -46,6 +47,7 @@ const ProductSection = () => {
   const [pos, setPos] = useState(1);
   const [withTransition, setWithTransition] = useState(true);
   const [paused, setPaused] = useState(false);
+  const navigate = useNavigate();
 
   const next = () => setPos((p) => p + 1);
   const prev = () => setPos((p) => p - 1);
@@ -119,7 +121,12 @@ const ProductSection = () => {
                   </ul>
                   <div className="buttons">
                     <button className="btn-red">Inquiry</button>
-                    <button className="btn-outline">Learn More</button>
+                    <button
+                      onClick={() => navigate(`/large-trucks`)}
+                      className="btn-outline"
+                    >
+                      Learn More
+                    </button>
                   </div>
                 </div>
               </div>

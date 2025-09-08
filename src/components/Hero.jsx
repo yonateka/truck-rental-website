@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Hero.css";
 import { assets } from "../assets/assets";
-
+import { useNavigate } from "react-router-dom";
 const Hero = () => {
   const slides = [
     {
@@ -31,6 +31,7 @@ const Hero = () => {
   ];
 
   const [current, setCurrent] = useState(0);
+  const navigate = useNavigate();
 
   const handleSlide = (index) => {
     setCurrent(index);
@@ -45,7 +46,7 @@ const Hero = () => {
         <div className="slide-content">
           <h2>{slides[current].title}</h2>
           <p>{slides[current].desc}</p>
-          <button>SEE MORE</button>
+          <button onClick={() => navigate(`/large-trucks`)}>SEE MORE</button>
         </div>
       </div>
 
