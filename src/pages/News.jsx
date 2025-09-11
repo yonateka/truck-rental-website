@@ -1,105 +1,218 @@
+// src/components/News.jsx
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function News() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [category, setCategory] = useState("general");
+  const [query, setQuery] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
-  // Animation variants for cards
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: (i) => ({
+  // Categories
+  const categories = [
+    { key: "general", label: "Top Stories" },
+    { key: "business", label: "Business" },
+    { key: "technology", label: "Technology" },
+    { key: "sports", label: "Sports" },
+    { key: "health", label: "Health" },
+    { key: "science", label: "Science" },
+    { key: "entertainment", label: "Entertainment" },
+  ];
+
+  // Animation
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: (i = 1) => ({
       opacity: 1,
       y: 0,
       transition: {
         delay: i * 0.2,
         duration: 0.6,
         type: "spring",
-        stiffness: 100,
+        stiffness: 80,
       },
     }),
   };
 
-  useEffect(() => {
-    async function fetchNews() {
-      try {
-        const res = await fetch(
-          "https://newsapi.org/v2/everything?q=truck OR logistics&sortBy=popularity&pageSize=6&apiKey=b05ef01106a244538ed5b13ad2dd286d"
-        );
-        const data = await res.json();
-        setArticles(data.articles || []);
-      } catch (err) {
-        console.error("News fetch failed:", err);
-      } finally {
-        setLoading(false);
-      }
+  const fetchNews = async (selectedCategory = "general", keyword = "") => {
+    setLoading(true);
+    try {
+      const apiKey = import.meta.env.VITE_NEWS_API_KEY;
+      const url = keyword
+        ? `https://newsapi.org/v2/everything?q=${keyword}&apiKey=${apiKey}`
+        : `https://newsapi.org/v2/top-headlines?country=us&category=${selectedCategory}&apiKey=${apiKey}`;
+
+      const res = await fetch(url);
+      const data = await res.json();
+      setArticles(data.articles || []);
+    } catch (err) {
+      console.error("News fetch failed:", err);
+      setArticles([]);
+    } finally {
+      setLoading(false);
     }
-    fetchNews();
-  }, []);
+  };
+
+  // Fetch by category
+  useEffect(() => {
+    if (!searchTerm) {
+      fetchNews(category);
+    }
+  }, [category]);
+
+  // Fetch by search term
+  useEffect(() => {
+    if (searchTerm) {
+      fetchNews("", searchTerm);
+    }
+  }, [searchTerm]);
 
   if (loading) {
-    return <div className="p-6 text-center text-gray-600">Loading news…</div>;
+    return (
+      <div className="!p-10 text-center text-gray-600 text-lg animate-pulse">
+        Loading news…
+      </div>
+    );
   }
 
+  if (articles.length === 0) {
+    return (
+      <div className="!p-10 text-center text-gray-600 text-lg">
+        No news available
+      </div>
+    );
+  }
+
+  const mainArticle = articles[0];
+  const sideArticles = articles.slice(1, 4);
+
   return (
-    <section className="!py-16 bg-white" id="News">
+    <section className="!py-16 !px-6 bg-white" id="News">
       {/* Section Heading */}
-      <div className="text-center !mb-12">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp}
+        className="text-center !mb-10"
+      >
         <h2 className="text-4xl font-extrabold text-gray-800 tracking-tight">
-          Rental <span className="text-orange-600">News</span>
+          Latest <span className="text-orange-600">News</span>
         </h2>
         <p className="text-gray-500 !mt-4">
-          Latest Updates and Stories About Truck Rentals and Logistics
+          Stay updated with the latest stories from around the world
         </p>
+      </motion.div>
+
+      {/* Search Bar */}
+      <div className="flex justify-center !mb-10">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search news…"
+          className="!px-6 !py-3 w-full max-w-lg border rounded-l-full focus:ring-2 focus:ring-orange-500 outline-none"
+        />
+        <button
+          onClick={() => setSearchTerm(query)}
+          className="!px-6 !py-3 bg-orange-600 text-white font-semibold rounded-r-full hover:bg-orange-700 transition"
+        >
+          Search
+        </button>
       </div>
 
-      {/* News Cards */}
-      <div className="flex flex-wrap justify-center gap-10">
-        {articles.slice(0, 6).map((article, index) => (
+      {/* Category Filters */}
+      {!searchTerm && (
+        <div className="flex flex-wrap justify-center gap-4 !mb-12">
+          {categories.map((cat) => (
+            <button
+              key={cat.key}
+              onClick={() => setCategory(cat.key)}
+              className={`!px-6 !py-2 rounded-full font-medium transition shadow-md ${
+                category === cat.key
+                  ? "bg-orange-600 text-white scale-105"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Grid Layout */}
+      <div className="max-w-6xl !mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+        {/* Main Article */}
+        {mainArticle && (
           <motion.div
-            key={index}
-            custom={index}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={cardVariants}
-            className="max-w-[340px] bg-white border rounded-2xl !px-8 !py-10 text-center shadow-[0_6px_20px_rgba(255,120,0,0.35)] hover:shadow-[0_8px_25px_rgba(255,120,0,0.55)] transition-shadow duration-300"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="md:col-span-2"
           >
-            {/* News Image */}
-            <div className="flex justify-center">
-              <img
-                className="!w-24 !h-24 rounded-full object-cover border-4 border-orange-500 shadow-lg !mb-5"
-                src={
-                  article.urlToImage ||
-                  "https://via.placeholder.com/150?text=No+Image"
-                }
-                alt={article.title}
-              />
-            </div>
-
-            {/* News Title */}
-            <h3 className="text-xl font-semibold text-gray-800 !mb-2">
-              {article.title || "No Title"}
-            </h3>
-
-            {/* Description */}
-            <p className="text-gray-600 leading-relaxed text-sm !mb-4">
-              {article.description
-                ? article.description.slice(0, 100) + "…"
-                : "No description available."}
-            </p>
-
-            {/* Read More Link */}
             <a
+              href={mainArticle.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block group"
+            >
+              <img
+                src={
+                  mainArticle.urlToImage ||
+                  "https://via.placeholder.com/800x500?text=No+Image"
+                }
+                alt={mainArticle.title}
+                className="w-full h-80 object-cover rounded-xl shadow-xl group-hover:opacity-90 transition"
+              />
+              <h3 className="!mt-6 text-2xl font-bold text-gray-900 group-hover:text-orange-600 transition">
+                {mainArticle.title}
+              </h3>
+              <p className="!mt-4 text-gray-600 leading-relaxed">
+                {mainArticle.description || "No description available."}
+              </p>
+            </a>
+          </motion.div>
+        )}
+
+        {/* Side Articles */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="space-y-8"
+        >
+          {sideArticles.map((article, idx) => (
+            <motion.a
+              key={idx}
               href={article.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-orange-600 !text-white font-semibold !px-12 !py-2 !mb-10 rounded "
+              className="block border-b pb-6 last:border-none group"
+              custom={idx}
+              variants={fadeInUp}
             >
-              Read more
-            </a>
-          </motion.div>
-        ))}
+              <img
+                src={
+                  article.urlToImage ||
+                  "https://via.placeholder.com/400x250?text=No+Image"
+                }
+                alt={article.title}
+                className="w-full h-40 object-cover rounded-lg shadow-md group-hover:opacity-90 transition"
+              />
+              <h4 className="!mt-3 text-lg font-semibold text-gray-800 group-hover:text-orange-600 transition">
+                {article.title}
+              </h4>
+              <p className="text-sm text-gray-500 !mt-1">
+                {article.publishedAt
+                  ? new Date(article.publishedAt).toDateString()
+                  : "Unknown date"}
+              </p>
+            </motion.a>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
