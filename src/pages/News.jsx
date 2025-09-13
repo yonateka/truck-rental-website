@@ -9,9 +9,10 @@ export default function News() {
   const [query, setQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Categories
   const categories = [
     { key: "general", label: "Top Stories" },
+    { key: "world", label: "World" },
+    { key: "nation", label: "Nation" },
     { key: "business", label: "Business" },
     { key: "technology", label: "Technology" },
     { key: "sports", label: "Sports" },
@@ -20,7 +21,6 @@ export default function News() {
     { key: "entertainment", label: "Entertainment" },
   ];
 
-  // Animation
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
     visible: (i = 1) => ({
@@ -38,10 +38,13 @@ export default function News() {
   const fetchNews = async (selectedCategory = "general", keyword = "") => {
     setLoading(true);
     try {
-      const apiKey = import.meta.env.VITE_NEWS_API_KEY;
+      const apiKey = import.meta.env.VITE_GNEWS_API_KEY;
+
       const url = keyword
-        ? `https://newsapi.org/v2/everything?q=${keyword}&apiKey=${apiKey}`
-        : `https://newsapi.org/v2/top-headlines?country=us&category=${selectedCategory}&apiKey=${apiKey}`;
+        ? `https://gnews.io/api/v4/search?q=${encodeURIComponent(
+            keyword
+          )}&lang=en&country=us&token=${apiKey}`
+        : `https://gnews.io/api/v4/top-headlines?category=${selectedCategory}&lang=en&country=us&token=${apiKey}`;
 
       const res = await fetch(url);
       const data = await res.json();
@@ -54,14 +57,12 @@ export default function News() {
     }
   };
 
-  // Fetch by category
   useEffect(() => {
     if (!searchTerm) {
       fetchNews(category);
     }
   }, [category]);
 
-  // Fetch by search term
   useEffect(() => {
     if (searchTerm) {
       fetchNews("", searchTerm);
@@ -89,7 +90,6 @@ export default function News() {
 
   return (
     <section className="!py-16 !px-6 bg-white" id="News">
-      {/* Section Heading */}
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -143,7 +143,6 @@ export default function News() {
 
       {/* Grid Layout */}
       <div className="max-w-6xl !mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
-        {/* Main Article */}
         {mainArticle && (
           <motion.div
             initial="hidden"
@@ -160,7 +159,7 @@ export default function News() {
             >
               <img
                 src={
-                  mainArticle.urlToImage ||
+                  mainArticle.image ||
                   "https://via.placeholder.com/800x500?text=No+Image"
                 }
                 alt={mainArticle.title}
@@ -176,7 +175,6 @@ export default function News() {
           </motion.div>
         )}
 
-        {/* Side Articles */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -196,7 +194,7 @@ export default function News() {
             >
               <img
                 src={
-                  article.urlToImage ||
+                  article.image ||
                   "https://via.placeholder.com/400x250?text=No+Image"
                 }
                 alt={article.title}
